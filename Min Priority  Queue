@@ -1,0 +1,88 @@
+
+class PriorityNode:
+    def __init__(self, value, priority):
+        self.value = value
+        self.priority = priority
+
+class PriorityQueue():
+    def __init__(self):
+        self.__pq = []
+    
+    
+    def __size(self):
+        return len(self.__pq)
+    
+    def isempty(self):
+        return 0 == self.__size()
+    
+    
+    def __upheapify(self):
+        ci = self.__size() - 1 
+        
+        while ci > 0:
+            pi = ci//2
+            if self.__pq[pi].priority > self.__pq[ci].priority:
+                self.__pq[pi], self.__pq[ci] = self.__pq[ci], self.__pq[pi]
+                ci = pi
+            else:
+                break
+        
+    def insert(self, value, priority):
+        newNode = PriorityNode(value, priority)
+        self.__pq.append(newNode)
+        self.__upheapify()
+    
+    def __downheapify(self):
+        pi = 0
+        ci1 = 2*pi + 1  
+        ci2 = 2*pi + 2 
+        
+        while ci1 < self.__size():
+            
+            mi = pi
+            
+            if self.__pq[mi].priority > self.__pq[ci1].priority:
+                mi = ci1 
+            
+            if ci2 < self.__size() and (self.__pq[mi].priority > self.__pq[ci2].priority):
+                mi = ci2
+            
+            if mi == pi:
+                break 
+            
+            self.__pq[mi], self.__pq[pi] = self.__pq[pi], self.__pq[mi]
+            
+            pi = mi 
+            ci1 = 2*pi + 1  
+            ci2 = 2*pi + 2
+            
+            
+    
+    def get(self):
+        if self.isempty():
+            return
+        ele = self.__pq[0]
+        self.__pq[0] = self.__pq[self.__size()-1]
+        self.__pq.pop()
+        self.__downheapify()
+        return ele.value
+
+pq = PriorityQueue()
+
+
+pq.insert('A', 10)
+pq.insert('C', 5)
+pq.insert('B', 18)
+pq.insert('D', 2)
+pq.insert('E', 1)
+
+while not pq.isempty():
+    print(pq.get())
+        
+        
+        
+        
+        
+        
+        
+        
