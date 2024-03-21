@@ -1,0 +1,38 @@
+res = [10, 1, 6, 5, 3, 8]
+
+
+def down_heapify(i, n, res):
+    pi = i 
+    ci1 = 2 * pi + 1 
+    ci2 = 2 * pi + 2 
+    
+    while ci1 < n:
+        mi = pi 
+        
+        if res[mi] < res[ci1]:
+            mi = ci1 
+        
+        if ci2 < n and (res[mi] < res[ci2]):
+            mi = ci2 
+        
+        if mi == pi:
+            break
+        
+        res[mi], res[pi] = res[pi], res[mi]
+        
+        pi = mi 
+        ci1 = 2 * pi + 1 
+        ci2 = 2 * pi + 2 
+        
+
+n = len(res)
+for i in range(n//2-1, -1, -1):
+    down_heapify(i, n, res)
+
+
+for i in range(n-1, 0, -1):
+    res[i], res[0] = res[0], res[i]
+    down_heapify(0, i, res)
+
+
+print(res)
