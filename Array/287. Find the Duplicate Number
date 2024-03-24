@@ -1,0 +1,45 @@
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        ############brute force approach ##############################
+
+        # d = {}
+
+        # for i in nums:
+        #     if i in d:
+        #         return i
+        #     else:
+        #         d[i] = 1
+        
+
+        ############## better approach ###############################
+
+        # for i in range(len(nums)):
+        #     t = abs(nums[i])
+        #     if nums[t] < 0:
+        #         return abs(t)
+        #     else:
+        #         nums[t] = (-1) * nums[t]
+
+
+        ############## optimal approach floyd algorithm ##########################
+
+        slow = fast = nums[0]
+
+        while True:
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            if slow == fast:
+                break
+        
+        slow = nums[0]
+
+        while slow != fast:
+            slow = nums[slow]
+            fast = nums[fast]
+        
+        return slow
+
+
+
+
+        
