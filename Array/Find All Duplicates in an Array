@@ -1,0 +1,15 @@
+class Solution:
+    def findDuplicates(self, nums: List[int]) -> List[int]:
+        res = []
+        n = len(nums)
+        for i in range(n):
+            t = abs(nums[i])
+            t = t % n
+            
+            if nums[t] < 0:
+                res.append(abs(nums[i]))
+            else:
+                nums[t] = (-1) * nums[t]
+        
+
+        return res
